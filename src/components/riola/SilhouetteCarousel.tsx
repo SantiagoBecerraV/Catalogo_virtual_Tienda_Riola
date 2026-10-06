@@ -21,7 +21,7 @@ export function SilhouetteCarousel() {
             className="group flex w-36 shrink-0 snap-start flex-col items-center gap-2 sm:w-40"
           >
             <span className="flex aspect-square w-full items-center justify-center rounded-md border-2 border-border bg-surface p-3 transition-all group-hover:-translate-y-1 group-hover:border-primary">
-              <Garment shape={s.shape} fabric={s.variants[0].fabric} print={s.variants[0].print} label={s.name} className="h-full w-full" />
+              <Garment shape={s.shape} fabric={s.variants[0]!.fabric} print={s.variants[0]!.print} label={s.name} className="h-full w-full" />
             </span>
             <span className="text-xs font-semibold">{s.name}</span>
           </Link>

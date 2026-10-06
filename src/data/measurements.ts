@@ -20,7 +20,7 @@ export const measurementTabs: MeasurementTab[] = [
   "Buzos",
 ];
 
-const build = (sizes: string[], w: number, l: number, s: number, step = [4, 2, 1]): MeasurementRow[] =>
+const build = (sizes: string[], w: number, l: number, s: number, step: [number, number, number] = [4, 2, 1]): MeasurementRow[] =>
   sizes.map((size, i) => ({
     size,
     width: `${w + i * step[0]} cm`,

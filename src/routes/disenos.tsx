@@ -27,7 +27,7 @@ function DesignsView() {
       <SectionTitle as="h1">Todos los Diseños</SectionTitle>
       <div className="mt-8 columns-2 gap-4 sm:columns-3 lg:columns-4 [&>*]:mb-4 [&>*]:break-inside-avoid">
         {designs.map((d, i) => (
-          <DesignCard key={d.id} design={d} aspect={ASPECTS[i % ASPECTS.length]} />
+          <DesignCard key={d.id} design={d} aspect={ASPECTS[i % ASPECTS.length]!} />
         ))}
       </div>
     </main>
