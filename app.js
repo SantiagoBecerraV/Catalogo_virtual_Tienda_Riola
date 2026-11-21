@@ -7,6 +7,18 @@
   'use strict';
 
   /* ---------- DATOS AUTÉNTICOS DEL REPOSITORIO ---------- */
+  // Helpers para rutas optimizadas WebP
+  const optWebp = (folder, filename) => {
+    const stem = filename.replace(/\.(jpe?g|png)$/i, '');
+    return encodeURI(folder + 'opt/' + stem + '_thumb.webp');
+  };
+  const optFullWebp = (folder, filename) => {
+    // Para lightbox: intentar versión optimizada; si no existe usa original
+    const stem = filename.replace(/\.(jpe?g|png)$/i, '');
+    const optPath = folder + 'opt/' + stem + '_thumb.webp';
+    return encodeURI(optPath);
+  };
+
   const MODELS = ["WhatsApp Image 2026-10-03 at 5.03.31 PM.jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (1).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (2).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (3).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM.jpeg"];
 
   const DESIGNS = ["WhatsApp Image 2026-10-03 at 12.34.44 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (5).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.52 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.52 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (5).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.56 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.35.30 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.01 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.14 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.23 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.30 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.39 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.48 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.56 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.04 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.13 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.44 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.38.18 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.38.58 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.39.13 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.39.29 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.07 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.47 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.59 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.41.14 AM.jpeg"];
@@ -102,7 +114,7 @@
     theme: 'dark',
     activeSilhouette: 'normal',
     activeGarmentImage: null,
-    visibleDesignsCount: 16,
+    visibleDesignsCount: 8,   // PERF: reducido de 16 a 8 en carga inicial
     batchSize: 16,
     mobileMenuOpen: false,
     lightboxImage: null,
@@ -210,7 +222,8 @@
 
   /* 3. Hero Principal */
   const renderHero = () => {
-    const heroImage = encodeURI('assets/Modelos_riola/' + MODELS[0]);
+    const heroWebp = optWebp('assets/Modelos_riola/', MODELS[0]);
+    const heroFallback = encodeURI('assets/Modelos_riola/' + MODELS[0]);
     return `
     <section id="inicio" class="hero-section">
       <div class="container hero-grid">
@@ -237,15 +250,19 @@
 
         <div class="hero-visual-wrap">
           <div class="hero-visual-card">
-            <img
-              src="${heroImage}"
-              alt="Modelo streetwear luciendo prenda oficial RIOLA"
-              class="hero-img"
-              width="780"
-              height="1040"
-              loading="eager"
-              decoding="async"
-            />
+            <picture>
+              <source srcset="${heroWebp}" type="image/webp" />
+              <img
+                src="${heroFallback}"
+                alt="Modelo streetwear luciendo prenda oficial RIOLA"
+                class="hero-img"
+                width="600"
+                height="800"
+                loading="eager"
+                decoding="sync"
+                fetchpriority="high"
+              />
+            </picture>
             <div class="hero-visual-overlay">
               <div>
                 <div class="hero-overlay-tag">RIOLA ⚡</div>
@@ -266,9 +283,11 @@
     const visibleDesigns = DESIGNS.slice(0, state.visibleDesignsCount);
     const hasMore = state.visibleDesignsCount < DESIGNS.length;
 
-    // Fotos editoriales destacadas para alternar en el catálogo
-    const editorialModel1 = encodeURI('assets/Modelos_riola/' + (MODELS[1] || MODELS[0]));
-    const editorialModel2 = encodeURI('assets/Modelos_riola/' + (MODELS[2] || MODELS[0]));
+    // Fotos editoriales destacadas para alternar en el catálogo (versión WebP optimizada)
+    const editorialModel1 = optWebp('assets/Modelos_riola/', MODELS[1] || MODELS[0]);
+    const editorialModel2 = optWebp('assets/Modelos_riola/', MODELS[2] || MODELS[0]);
+    const editorialFallback1 = encodeURI('assets/Modelos_riola/' + (MODELS[1] || MODELS[0]));
+    const editorialFallback2 = encodeURI('assets/Modelos_riola/' + (MODELS[2] || MODELS[0]));
 
     let itemsHtml = '';
 
@@ -278,7 +297,7 @@
         itemsHtml += `
           <div class="featured-editorial-card">
             <div class="featured-editorial-media">
-              <img src="${editorialModel1}" alt="Lookbook RIOLA en la calle" loading="lazy" decoding="async" />
+              <picture><source srcset="${editorialModel1}" type="image/webp" /><img src="${editorialFallback1}" alt="Lookbook RIOLA en la calle" loading="lazy" decoding="async" /></picture>
             </div>
             <div class="featured-editorial-content">
               <span class="featured-editorial-badge">LOOKBOOK RIOLA</span>
@@ -293,7 +312,7 @@
         itemsHtml += `
           <div class="featured-editorial-card">
             <div class="featured-editorial-media">
-              <img src="${editorialModel2}" alt="Detalle urbano prenda RIOLA" loading="lazy" decoding="async" />
+              <picture><source srcset="${editorialModel2}" type="image/webp" /><img src="${editorialFallback2}" alt="Detalle urbano prenda RIOLA" loading="lazy" decoding="async" /></picture>
             </div>
             <div class="featured-editorial-content">
               <span class="featured-editorial-badge">DETALLE & TEXTURA</span>
@@ -304,17 +323,25 @@
       }
 
       const imgPath = encodeURI('assets/Diseños_riola/' + designFile);
+      const imgThumb = optWebp('assets/Diseños_riola/', designFile);
       const designNumber = String(idx + 1).padStart(2, '0');
+      // Las primeras 4 tarjetas (potencialmente visibles) no usan lazy
+      const lazyAttr = idx < 4 ? 'eager' : 'lazy';
 
       itemsHtml += `
         <article class="design-card" data-design="${imgPath}" data-title="Diseño RIOLA #${designNumber}" role="button" tabindex="0" aria-label="Ver Diseño #${designNumber}">
           <div class="design-card-media">
-            <img
-              src="${imgPath}"
-              alt="Estampado auténtico RIOLA #${designNumber}"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source srcset="${imgThumb}" type="image/webp" />
+              <img
+                src="${imgPath}"
+                alt="Estampado auténtico RIOLA #${designNumber}"
+                loading="${lazyAttr}"
+                decoding="async"
+                width="450"
+                height="450"
+              />
+            </picture>
           </div>
           <div class="design-card-footer">
             <span class="design-card-tag">DISEÑO #${designNumber}</span>
@@ -420,9 +447,17 @@
 
     const thumbsHtml = active.images.map((imgUrl, i) => {
       const isActive = imgUrl === currentImg;
+      // Detectar carpeta para ruta de thumb WebP
+      const folderMatch = imgUrl.match(/^(assets\/Siluetas_riola\/[^/]+\/)/);
+      const folder = folderMatch ? folderMatch[1] : '';
+      const filename = imgUrl.split('/').pop();
+      const thumbWebp = folder ? optWebp(folder, filename) : encodeURI(imgUrl);
       return `
-        <div class="garment-thumb ${isActive ? 'active' : ''}" data-img="${encodeURI(imgUrl)}" role="button" tabindex="0" aria-label="Color ${i+1}">
-          <img src="${encodeURI(imgUrl)}" alt="Variante ${active.name} ${i+1}" loading="lazy" />
+        <div class="garment-thumb ${isActive ? 'active' : ''}" data-img="${encodeURI(imgUrl)}" role="button" tabindex="0" aria-label="Variante ${i+1}">
+          <picture>
+            <source srcset="${thumbWebp}" type="image/webp" />
+            <img src="${encodeURI(imgUrl)}" alt="Variante ${active.name} ${i+1}" loading="lazy" width="64" height="64" />
+          </picture>
         </div>`;
     }).join('');
 
@@ -474,12 +509,23 @@
           <div class="garment-visuals">
             <!-- 2. Fotografía principal -->
             <div class="garment-main-frame">
-              <img
-                id="garment-main-img"
-                src="${encodeURI(currentImg)}"
-                alt="Prenda auténtica RIOLA: ${active.name}"
-                loading="eager"
-              />
+              <picture>
+                ${(() => {
+                  const f = currentImg.match(/^(assets\/Siluetas_riola\/[^/]+\/)/);
+                  const folder = f ? f[1] : '';
+                  const fn = currentImg.split('/').pop();
+                  const webp = folder ? optWebp(folder, fn) : '';
+                  return webp ? `<source srcset="${webp}" type="image/webp" />` : '';
+                })()}
+                <img
+                  id="garment-main-img"
+                  src="${encodeURI(currentImg)}"
+                  alt="Prenda auténtica RIOLA: ${active.name}"
+                  loading="eager"
+                  width="420"
+                  height="420"
+                />
+              </picture>
               <span class="garment-badge-strip">${active.badge}</span>
             </div>
 
@@ -651,11 +697,16 @@
     let cardsHtml = '';
     visibleDesigns.forEach((designFile, idx) => {
       const imgPath = encodeURI('assets/Diseños_riola/' + designFile);
+      const imgThumb = optWebp('assets/Diseños_riola/', designFile);
       const designNumber = String(idx + 1).padStart(2, '0');
+      const lazyAttr2 = idx < 4 ? 'eager' : 'lazy';
       cardsHtml += `
         <article class="design-card" data-design="${imgPath}" data-title="Diseño RIOLA #${designNumber}" role="button" tabindex="0" aria-label="Ver Diseño #${designNumber}">
           <div class="design-card-media">
-            <img src="${imgPath}" alt="Estampado auténtico RIOLA #${designNumber}" loading="lazy" decoding="async" />
+            <picture>
+              <source srcset="${imgThumb}" type="image/webp" />
+              <img src="${imgPath}" alt="Estampado auténtico RIOLA #${designNumber}" loading="${lazyAttr2}" decoding="async" width="450" height="450" />
+            </picture>
           </div>
           <div class="design-card-footer">
             <span class="design-card-tag">DISEÑO #${designNumber}</span>

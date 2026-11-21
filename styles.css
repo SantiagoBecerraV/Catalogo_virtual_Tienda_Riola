@@ -118,6 +118,27 @@ button {
   transition: transform 0.2s ease;
 }
 
+/* ── Optimización de rendimiento: picture responsive ── */
+picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+picture source {
+  display: none;
+}
+
+/* Acelera compositing del ticker con GPU */
+
+/* content-visibility para secciones fuera del viewport inicial */
+.section-alt,
+#prendas,
+#contacto {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
 /* Contenedor estándar */
 .container {
   width: 100%;
@@ -413,6 +434,7 @@ button {
 .ticker-track {
   display: inline-block;
   animation: ticker-slide 28s linear infinite;
+  will-change: transform;
 }
 
 @keyframes ticker-slide {

@@ -12,14 +12,31 @@
     <link rel="icon" type="image/jpeg" href="assets/Logo_riola.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fuentes: carga no bloqueante con media trick -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
+      />
+    </noscript>
+    <!-- Preload imagen hero (LCP crítico) -->
+    <link
+      rel="preload"
+      as="image"
+      href="assets/Modelos_riola/opt/WhatsApp%20Image%202026-10-03%20at%205.03.31%20PM_thumb.webp"
+      type="image/webp"
+      fetchpriority="high"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="app"></div>
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
   </body>
 </html>
