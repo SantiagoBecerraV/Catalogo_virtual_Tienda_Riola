@@ -181,8 +181,12 @@
             <span class="theme-text">${state.theme === 'dark' ? 'Claro' : 'Oscuro'}</span>
           </button>
 
-          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Abrir menú" aria-expanded="${state.mobileMenuOpen}">
-            ${state.mobileMenuOpen ? iconClose() : iconMenu()}
+          <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="${state.mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}" aria-expanded="${state.mobileMenuOpen}" aria-controls="mobile-nav-panel">
+            <span class="hamburger-box" aria-hidden="true">
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+              <span class="hamburger-line"></span>
+            </span>
           </button>
         </div>
       </div>
@@ -461,8 +465,14 @@
 
         <!-- Panel de Prenda Activa con Medidas -->
         <div class="garment-showcase">
-          <!-- Columna Imagen y Variantes -->
+          <!-- 1. Nombre de la silueta (Encabezado móvil en orden 1) -->
+          <div class="garment-mobile-header">
+            <h3 class="garment-title">${active.name}</h3>
+          </div>
+
+          <!-- Columna Imagen y Variantes (Orden 2 y 3 en móvil) -->
           <div class="garment-visuals">
+            <!-- 2. Fotografía principal -->
             <div class="garment-main-frame">
               <img
                 id="garment-main-img"
@@ -473,7 +483,8 @@
               <span class="garment-badge-strip">${active.badge}</span>
             </div>
 
-            <div>
+            <!-- 3. Variantes y colores disponibles -->
+            <div class="garment-thumbs-wrap">
               <div class="garment-thumbs-title">Variantes y colores en catálogo (${active.images.length} disponibles):</div>
               <div class="garment-thumbs">
                 ${thumbsHtml}
@@ -481,12 +492,13 @@
             </div>
           </div>
 
-          <!-- Columna Información y Tabla de Medidas -->
+          <!-- Columna Información y Tabla de Medidas (Orden 4, 5, 6, 7 en móvil) -->
           <div class="garment-info-wrap">
-            <div>
+            <div class="garment-desktop-header">
               <h3 class="garment-title">${active.name}</h3>
-              <p class="garment-desc">${active.description}</p>
             </div>
+            <!-- 4. Descripción breve -->
+            <p class="garment-desc">${active.description}</p>
 
             <div class="garment-specs-grid">
               <div class="spec-item">
@@ -732,22 +744,36 @@
       });
     }
 
-    // 2. Menú Móvil
+    // 2. Menú Móvil con microanimación y control de accesibilidad
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobilePanel = document.getElementById('mobile-nav-panel');
+
+    const setMenuOpen = (open) => {
+      state.mobileMenuOpen = open;
+      if (mobilePanel) mobilePanel.classList.toggle('open', open);
+      if (menuBtn) {
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      }
+    };
+
     if (menuBtn && mobilePanel) {
-      menuBtn.addEventListener('click', () => {
-        state.mobileMenuOpen = !state.mobileMenuOpen;
-        mobilePanel.classList.toggle('open', state.mobileMenuOpen);
-        menuBtn.innerHTML = state.mobileMenuOpen ? iconClose() : iconMenu();
+      menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setMenuOpen(!state.mobileMenuOpen);
       });
 
       mobilePanel.querySelectorAll('a').forEach(a => {
         a.addEventListener('click', () => {
-          state.mobileMenuOpen = false;
-          mobilePanel.classList.remove('open');
-          menuBtn.innerHTML = iconMenu();
+          setMenuOpen(false);
         });
+      });
+
+      // Cerrar al pulsar fuera del panel y del botón
+      document.addEventListener('click', (e) => {
+        if (state.mobileMenuOpen && !mobilePanel.contains(e.target) && !menuBtn.contains(e.target)) {
+          setMenuOpen(false);
+        }
       });
     }
 
@@ -783,6 +809,14 @@
         }
       });
     });
+
+    // Centrar la pestaña de silueta activa en móviles si se desborda el selector
+    const activeTab = document.querySelector('.silhouette-tab[aria-selected="true"]');
+    if (activeTab && typeof activeTab.scrollIntoView === 'function') {
+      try {
+        activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } catch (err) {}
+    }
 
     const thumbs = document.querySelectorAll('.garment-thumb');
     thumbs.forEach(thumb => {
@@ -876,8 +910,21 @@
   };
 
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && state.lightboxImage) {
-      closeLightbox();
+    if (e.key === 'Escape') {
+      if (state.lightboxImage) {
+        closeLightbox();
+      }
+      if (state.mobileMenuOpen) {
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobilePanel = document.getElementById('mobile-nav-panel');
+        if (menuBtn && mobilePanel) {
+          state.mobileMenuOpen = false;
+          mobilePanel.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          menuBtn.setAttribute('aria-label', 'Abrir menú');
+          menuBtn.focus();
+        }
+      }
     }
   });
 
