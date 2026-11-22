@@ -22,6 +22,9 @@
   // Enlace oficial de WhatsApp con mensaje inicial predeterminado
   const WA_RIOLA_URL = 'https://wa.me/573114652883?text=Hola%2C%20vengo%20de%20la%20p%C3%A1gina%20web%20de%20RIOLA%20y%20quisiera%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20prendas%20y%20dise%C3%B1os.';
 
+  // Enlace oficial de Instagram de RIOLA
+  const INSTAGRAM_RIOLA_URL = 'https://www.instagram.com/riola_oficial?lqvp=ZDNlZDc0MzIxNw==';
+
   const MODELS = ["WhatsApp Image 2026-10-03 at 5.03.31 PM.jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (1).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (2).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (3).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM.jpeg"];
 
   const DESIGNS = [
@@ -531,7 +534,7 @@
       const filename = imgUrl.split('/').pop();
       const thumbWebp = folder ? optWebp(folder, filename) : encodeURI(imgUrl);
       return `
-        <div class="garment-thumb ${isActive ? 'active' : ''}" data-img="${encodeURI(imgUrl)}" role="button" tabindex="0" aria-label="Variante ${i+1}">
+        <div class="garment-thumb ${isActive ? 'active' : ''}" data-img="${encodeURI(imgUrl)}" role="button" tabindex="0" aria-label="Variante ${i+1}" aria-selected="${isActive}">
           <picture>
             <source srcset="${thumbWebp}" type="image/webp" />
             <img src="${encodeURI(imgUrl)}" alt="Variante ${active.name} ${i+1}" loading="lazy" width="64" height="64" />
@@ -587,7 +590,7 @@
           <div class="garment-visuals">
             <!-- 2. Fotografía principal -->
             <div class="garment-main-frame">
-              <picture>
+              <picture id="garment-main-picture">
                 ${(() => {
                   const f = currentImg.match(/^(assets\/Siluetas_riola\/[^/]+\/)/);
                   const folder = f ? f[1] : '';
@@ -683,7 +686,7 @@
           </p>
           <div class="footer-channels">
             <a
-              href="https://instagram.com/riola_oficial"
+              href="${INSTAGRAM_RIOLA_URL}"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-primary"
@@ -730,7 +733,7 @@
               <h4>Canales Oficiales</h4>
               <ul class="footer-links-list">
                 <li>
-                  <a href="https://instagram.com/riola_oficial" target="_blank" rel="noopener noreferrer">
+                  <a href="${INSTAGRAM_RIOLA_URL}" target="_blank" rel="noopener noreferrer">
                     Instagram @riola_oficial
                   </a>
                 </li>
@@ -948,17 +951,59 @@
       selector.scrollLeft = Math.max(0, scrollPos);
     }
 
+    // Función centralizada para actualizar la variante visual de prenda
+    const updateGarmentVariant = (imgUrl) => {
+      state.activeGarmentImage = decodeURI(imgUrl);
+      const pictureEl = document.getElementById('garment-main-picture');
+      if (!pictureEl) return;
+
+      const folderMatch = state.activeGarmentImage.match(/^(assets\/Siluetas_riola\/[^/]+\/)/);
+      const folder = folderMatch ? folderMatch[1] : '';
+      const filename = state.activeGarmentImage.split('/').pop();
+      const thumbWebp = folder ? optWebp(folder, filename) : '';
+      const active = SILHOUETTES[state.activeSilhouette] || SILHOUETTES.normal;
+
+      // Actualiza sincronizadamente tanto source srcset (WebP) como img src (fallback)
+      // Reemplazar el contenido de picture fuerza al navegador a re-evaluar la imagen
+      // eliminando el bug donde source srcset antiguo bloqueaba la actualización del img src.
+      pictureEl.innerHTML = `
+        ${thumbWebp ? `<source srcset="${thumbWebp}" type="image/webp" />` : ''}
+        <img
+          id="garment-main-img"
+          src="${encodeURI(state.activeGarmentImage)}"
+          alt="Prenda auténtica RIOLA: ${active.name}"
+          loading="eager"
+          width="420"
+          height="420"
+          class="garment-img-swap"
+        />
+      `;
+    };
+
     const thumbs = document.querySelectorAll('.garment-thumb');
     thumbs.forEach(thumb => {
-      thumb.addEventListener('click', () => {
+      const selectVariant = () => {
         const imgUrl = thumb.dataset.img;
         if (imgUrl) {
-          state.activeGarmentImage = decodeURI(imgUrl);
-          const mainImg = document.getElementById('garment-main-img');
-          if (mainImg) {
-            mainImg.src = imgUrl;
+          const decoded = decodeURI(imgUrl);
+          const active = SILHOUETTES[state.activeSilhouette] || SILHOUETTES.normal;
+          const current = state.activeGarmentImage || active.images[0];
+          if (decoded !== current) {
+            updateGarmentVariant(imgUrl);
+            thumbs.forEach(t => {
+              const isTarget = t === thumb;
+              t.classList.toggle('active', isTarget);
+              t.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+            });
           }
-          thumbs.forEach(t => t.classList.toggle('active', t === thumb));
+        }
+      };
+
+      thumb.addEventListener('click', selectVariant);
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectVariant();
         }
       });
     });
