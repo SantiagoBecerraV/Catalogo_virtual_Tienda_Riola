@@ -940,12 +940,12 @@
       });
     });
 
-    // Centrar la pestaña de silueta activa en móviles si se desborda el selector
+    // Centrar horizontalmente la pestaña de silueta activa dentro del selector si se desborda (sin desplazar la ventana)
     const activeTab = document.querySelector('.silhouette-tab[aria-selected="true"]');
-    if (activeTab && typeof activeTab.scrollIntoView === 'function') {
-      try {
-        activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      } catch (err) {}
+    const selector = document.querySelector('.silhouette-selector');
+    if (selector && activeTab) {
+      const scrollPos = activeTab.offsetLeft - (selector.clientWidth / 2) + (activeTab.clientWidth / 2);
+      selector.scrollLeft = Math.max(0, scrollPos);
     }
 
     const thumbs = document.querySelectorAll('.garment-thumb');
