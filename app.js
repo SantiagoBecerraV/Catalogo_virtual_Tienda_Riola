@@ -19,9 +19,87 @@
     return encodeURI(optPath);
   };
 
+  // Enlace oficial de WhatsApp con mensaje inicial predeterminado
+  const WA_RIOLA_URL = 'https://wa.me/573114652883?text=Hola%2C%20vengo%20de%20la%20p%C3%A1gina%20web%20de%20RIOLA%20y%20quisiera%20recibir%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20prendas%20y%20dise%C3%B1os.';
+
   const MODELS = ["WhatsApp Image 2026-10-03 at 5.03.31 PM.jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (1).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (2).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM (3).jpeg", "WhatsApp Image 2026-10-03 at 5.03.38 PM.jpeg"];
 
-  const DESIGNS = ["WhatsApp Image 2026-10-03 at 12.34.44 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.45 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.46 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.47 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.48 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.49 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.50 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM (5).jpeg", "WhatsApp Image 2026-10-03 at 12.34.51 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.52 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.52 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.53 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.54 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (1).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (2).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (3).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (4).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM (5).jpeg", "WhatsApp Image 2026-10-03 at 12.34.55 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.34.56 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.35.30 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.01 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.14 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.23 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.30 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.39 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.48 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.36.56 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.04 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.13 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.37.44 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.38.18 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.38.58 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.39.13 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.39.29 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.07 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.47 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.40.59 AM.jpeg", "WhatsApp Image 2026-10-03 at 12.41.14 AM.jpeg"];
+  const DESIGNS = [
+    "WhatsApp Image 2026-10-03 at 12.34.44 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.45 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.45 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.45 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.45 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.46 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.46 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.46 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.47 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.47 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.47 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.47 AM (4).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.47 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.48 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.48 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.48 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.49 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.49 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.49 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.49 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.50 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.50 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.50 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.50 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.51 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.51 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.51 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.51 AM (4).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.51 AM (5).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.52 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.52 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.53 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.53 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.53 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.53 AM (4).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.53 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.54 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.54 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.54 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM (1).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM (2).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM (3).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM (4).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM (5).jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.55 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.34.56 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.35.30 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.01 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.14 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.23 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.30 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.39 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.48 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.36.56 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.37.04 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.37.13 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.37.44 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.38.18 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.38.58 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.39.13 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.39.29 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.40.07 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.40.47 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.40.59 AM.jpeg",
+    "WhatsApp Image 2026-10-03 at 12.41.14 AM.jpeg",
+    "Diseño_nuevo.jpeg",
+    "Diseño_nuevo2.jpeg",
+    "Diseño_nuevo3.jpeg",
+    "Diseño_nuevo4.jpeg",
+    "Diseño_nuevo5.jpeg",
+    "Diseño_nuevo6.jpeg",
+    "Diseño_nuevo7.jpeg",
+    "Diseño_nuevo8.jpeg",
+    "Diseño_nuevo9.jpeg"
+  ];
 
   const SILHOUETTES = {
     normal: {
@@ -613,12 +691,13 @@
               SEGUIR EN INSTAGRAM @riola_oficial
             </a>
             <a
-              href="https://wa.me/?text=Hola%20RIOLA,%20estoy%20viendo%20el%20cat%C3%A1logo%20virtual%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+              href="${WA_RIOLA_URL}"
               target="_blank"
               rel="noopener noreferrer"
               class="btn btn-secondary"
+              aria-label="Comunícate por WhatsApp con RIOLA (+57 311 465 2883)"
             >
-              CONTACTAR POR WHATSAPP
+              COMUNÍCATE POR WHATSAPP
             </a>
           </div>
         </div>
@@ -656,8 +735,8 @@
                   </a>
                 </li>
                 <li>
-                  <a href="https://wa.me/?text=Hola%20RIOLA" target="_blank" rel="noopener noreferrer">
-                    WhatsApp Oficial
+                  <a href="${WA_RIOLA_URL}" target="_blank" rel="noopener noreferrer">
+                    WhatsApp Oficial (+57 311 465 2883)
                   </a>
                 </li>
                 <li><span>Bucaramanga, Santander</span></li>
@@ -681,7 +760,7 @@
           &times;
         </button>
         <div class="lightbox-image-wrap">
-          <img id="lightbox-img" src="${state.lightboxImage ? encodeURI(state.lightboxImage) : ''}" alt="${state.lightboxTitle}" />
+          <img id="lightbox-img" src="${state.lightboxImage || ''}" alt="${state.lightboxTitle}" />
         </div>
         <div class="lightbox-caption">
           <span id="lightbox-caption-text">${state.lightboxTitle}</span>

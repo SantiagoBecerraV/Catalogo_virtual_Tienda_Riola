@@ -1,0 +1,9 @@
+{
+  "name": "catalogo-virtual-riola",
+  "version": "1.0.0",
+  "description": "Catálogo virtual oficial de RIOLA — Streetwear Santandereano",
+  "private": true,
+  "scripts": {
+    "catalog:sync": "python scripts/sync_catalog.py"
+  }
+}
